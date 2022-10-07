@@ -1,0 +1,14 @@
+.popup__field {
+  width: min-content;
+  height: min-content;
+  background: none;
+  z-index: 11;
+  justify-self: center;
+  align-self: center;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  color: white;
+  position: relative;
+	cursor: default;
+}

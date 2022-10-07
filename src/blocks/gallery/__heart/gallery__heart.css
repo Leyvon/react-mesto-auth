@@ -1,0 +1,18 @@
+.gallery__heart {
+  width: 22px;
+  height: 19px;
+  margin-right: 4px;
+  align-self: center;
+  padding: 0;
+  border: none;
+  background-color: white;
+  background-image: url(../../../images/heart.svg);
+  cursor: pointer;
+  transition: opacity 1s;
+  stroke: black;
+  fill: black;
+}
+
+.gallery__heart:hover {
+  opacity: .5;
+}

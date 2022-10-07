@@ -1,0 +1,18 @@
+.gallery__count {
+  font-family: 'Inter', 'Arial', 'sans-serif';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 50px;
+  color: #000000;
+  margin-top: 3px;
+}
+
+.gallery__count:empty {
+  margin-top: 0px;
+}

@@ -1,0 +1,6 @@
+.gallery__mark {
+  display: flex;
+  flex-direction: column;
+  align-content:center;
+  justify-content: center;
+}

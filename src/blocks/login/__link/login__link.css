@@ -1,0 +1,20 @@
+.login__link {
+  text-decoration: none;
+  transition: opacity 1s;
+}
+
+.login__link:link {
+  color: #FFFFFF;
+}
+
+.login__link:visited{
+  color: #FFFFFF;
+}
+
+.login__link:active {
+  color: #FFFFFF;
+}
+
+.login__link:hover {
+  opacity: 0.6;
+}
