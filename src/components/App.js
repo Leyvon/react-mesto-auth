@@ -50,12 +50,8 @@ function App() {
     setIsInfoTooltipPopupOpen(true);
   }
 
-  const handleSetStatusInfo = () => {
-    setIsLoggedSuccessfully(true);
-  }
-
-  const handleLogin = () => {
-    setLoggedIn(true);
+  const handleLoginIn = () => {
+    setLoggedIn(!loggedIn);
   }
 
   const handleCardClick = (card) => {
@@ -147,21 +143,60 @@ function App() {
       });
   }
 
-  const isOpen = isEditAvatarPopupOpen || isEditProfilePopupOpen || isAddPlacePopupOpen || isImagePopupOpen || isInfoTooltipPopupOpen;
+  const getEmail = () => {
+    const jwt = localStorage.getItem('token');
+    if (jwt){
+      auth.checkToken(jwt)
+        .then((res) => {
+          localStorage.setItem('email', res.data.email);
+        })
+        .catch((err) => {
+          console.log(`${err}`); 
+        });
+    }
+  }
+
+  const submitLogin = (userEmail, password) => {
+    auth.login(userEmail, password)
+      .then((res) => {
+        localStorage.setItem('token', res.token);
+        handleLoginIn();
+        getEmail();
+        history.push('/');
+      })
+      .catch((err) => {
+        console.log(`${err}`); 
+      });
+  }
+
+  const submitRegist = (userEmail, password) => {
+    auth.register(userEmail, password)
+      .then((res) => {
+        setIsLoggedSuccessfully(true);
+        history.push("/sign-in");
+      })
+      .catch((err) => {
+        setIsLoggedSuccessfully(false);
+        console.log(`${err}`);
+      })
+      .finally(() => {
+        handleShowInfoOpen();
+      });
+  }
+
+  const exit = () => {
+    handleLoginIn();
+    localStorage.removeItem("token");
+    localStorage.removeItem("email");
+  }
 
   React.useEffect(() => {
-    function closeByEscape(evt) {
-      if(evt.key === 'Escape') {
-        closeAllPopups();
-      }
+    getEmail();
+    if (localStorage.getItem('email')) {
+      handleLoginIn();
+      history.push('/');
     }
-    if(isOpen) {
-      document.addEventListener('keydown', closeByEscape);
-      return () => {
-        document.removeEventListener('keydown', closeByEscape);
-      }
-    }
-  }, [isOpen]) 
+  }, []);
 
   React.useEffect(() => {
     Promise.all([api.getInitialUserInfo(), api.getInitialCards()])
@@ -174,26 +209,12 @@ function App() {
     });
   }, []);
 
-  React.useEffect(() => {
-    if (localStorage.getItem('token')) {
-      const jwt = localStorage.getItem('token');
-      if (jwt){
-        auth.getUserData(jwt).then((res) => {
-          if (res.data._id === localStorage.getItem('id')){
-            handleLogin();
-            history.push('/');
-          }
-        }); 
-      }
-    }
-  }, []);
-
   return (
     <CurrentUserContext.Provider value={currentUser}>
       
       <div className="page">
       
-        <Header />
+        <Header loggedIn={loggedIn} onClick={exit} />
           <Switch>
             <ProtectedRoute
               exact
@@ -210,11 +231,11 @@ function App() {
             />
 
             <Route exact path="/sign-in">
-              <Login handleLogin={handleLogin} />
+              <Login submit={submitLogin}/>
             </Route>
 
             <Route exact path="/sign-up">
-              <Registration handleSetStatusInfo={handleSetStatusInfo} handleShowInfoOpen={handleShowInfoOpen} />
+              <Registration submit={submitRegist} />
             </Route>
 
             <Redirect to="/" />

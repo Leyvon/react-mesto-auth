@@ -1,0 +1,8 @@
+.nav__link_type_exit {
+  color: #A9A9A9;
+  text-decoration: none;
+}
+
+.nav__link_type_exit:visited {
+  color: #A9A9A9;
+}

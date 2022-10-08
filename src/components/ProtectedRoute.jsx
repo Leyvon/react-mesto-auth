@@ -9,6 +9,6 @@ const ProtectedRoute = ({ component: Component, ...props }) => {
       }
     </Route>
   );
-}
+};
 
 export default ProtectedRoute;

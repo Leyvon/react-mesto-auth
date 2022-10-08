@@ -12,37 +12,38 @@ class Auth {
     }
   }
 
+  _request(url, options) {
+    return fetch(url, options).then(this._checkResponse)
+  }
+
   register = (email, password) => {
-    return fetch(`${this._baseUrl}/signup`, {
+    return this._request(`${this._baseUrl}/signup`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({password, email})
-    })
-    .then(this._checkResponse);
+    });
   };
 
   login = (email, password) => {
-    return fetch(`${this._baseUrl}/signin`, {
+    return this._request(`${this._baseUrl}/signin`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({password, email})
-    })
-    .then(this._checkResponse);
+    });
   };
 
-  getUserData = (token) => {
-    return fetch(`${this._baseUrl}/users/me`, {
+  checkToken = (token) => {
+    return this._request(`${this._baseUrl}/users/me`, {
       method: 'GET',
       headers: {
         "Content-Type": "application/json",
         "Authorization" : `Bearer ${token}`
       }
-    })
-    .then(this._checkResponse);
+    });
   };
 }
 

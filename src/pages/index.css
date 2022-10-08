@@ -38,11 +38,11 @@
 @import url(../blocks/popup/__error/popup__error.css);
 @import url(../blocks/popup/__error/_visible/popup__error_visible.css);
 @import url(../blocks/popup/__container/popup__container.css);
+@import url(../blocks/popup/__container/_type/popup__container_type_enlargement.css);
 @import url(../blocks/popup/__form/popup__form.css);
 @import url(../blocks/popup/__button/popup__button.css);
 @import url(../blocks/popup/__button/_disabled/popup__button_disabled.css);
 @import url(../blocks/popup/__close-button/popup__close-button.css);
-@import url(../blocks/popup/__field/popup__field.css);
 @import url(../blocks/popup/__place-name/popup__place-name.css);
 @import url(../blocks/popup/__big-image/popup__big-image.css);
 @import url(../blocks/popup/__img/popup__img.css);
@@ -53,3 +53,6 @@
 @import url(../blocks/login/signup-container/login__signup-container.css);
 @import url(../blocks/login/__button-submit/login__button-submit.css);
 @import url(../blocks/login/__link/login__link.css);
+@import url(../blocks/nav/nav.css);
+@import url(../blocks/nav/__link/nav__link.css);
+@import url(../blocks/nav/__link/_type_exit/nav__link_type_exit.css);
