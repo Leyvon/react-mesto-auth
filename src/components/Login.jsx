@@ -1,22 +1,18 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import useForm from "../hooks/useForm";
 
 const Login = ({ submit }) => {
-  const [userEmail, setUserEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
-
-  const handleUserEmailChange = (e) => {
-    setUserEmail(e.target.value);
-  };
-
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  };
+  const { values, handleChange, setValues } = useForm({});
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    submit(userEmail, password);
+    submit(values.email, values.password);
   };
+
+  React.useEffect(() => {
+    setValues({ email: "", password: "" });
+  }, []);
 
   return (
     <div className="login">
@@ -24,15 +20,15 @@ const Login = ({ submit }) => {
       <form onSubmit={handleSubmit} className="login__form">
         <input
           required
-          className="login__input login__input_type_useremail"
-          id="useremail"
-          name="useremail"
+          className="login__input login__input_type_email"
+          id="email"
+          name="email"
           type="email"
           minLength="3"
           maxLength="30"
           placeholder="Email"
-          value={userEmail || ""}
-          onChange={handleUserEmailChange}
+          value={values.email || ""}
+          onChange={handleChange}
         />
         <input
           required
@@ -43,8 +39,8 @@ const Login = ({ submit }) => {
           minLength="4"
           maxLength="30"
           placeholder="Пароль"
-          value={password || ""}
-          onChange={handlePasswordChange}
+          value={values.password || ""}
+          onChange={handleChange}
         />
         <button type="submit" className="login__button-submit">
           Войти

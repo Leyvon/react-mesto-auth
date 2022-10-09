@@ -143,7 +143,7 @@ function App() {
       });
   }
 
-  const getEmail = () => {
+  const checkToken = () => {
     const jwt = localStorage.getItem('token');
     if (jwt){
       auth.checkToken(jwt)
@@ -161,7 +161,7 @@ function App() {
       .then((res) => {
         localStorage.setItem('token', res.token);
         handleLoginIn();
-        getEmail();
+        localStorage.setItem('email', userEmail);
         history.push('/');
       })
       .catch((err) => {
@@ -191,7 +191,7 @@ function App() {
   }
 
   React.useEffect(() => {
-    getEmail();
+    checkToken();
     if (localStorage.getItem('email')) {
       handleLoginIn();
       history.push('/');
